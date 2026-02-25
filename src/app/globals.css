@@ -1,26 +1,81 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-background: #ffffff;
+  --color-foreground: #0B0B0B;
+  --color-accent: #F95523;
+  --color-accent-soft: #FDBBA7;
+  --color-gray-light: #E7E7E7;
+  --color-gray-mid: #6A6969;
+  --color-gray-dark: #AEAEAE;
+  --color-card: #F6F8FE;
+  --font-sans: var(--font-outfit);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Subtle animated gradient glow at the top */
+.bg-glow {
+  position: fixed;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(249, 85, 35, 0.08) 0%,
+    rgba(253, 187, 167, 0.04) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+  animation: glowPulse 8s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.7;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+}
+
+/* Staggered fade-in animation */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  opacity: 0;
+  animation: fadeSlideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Link button hover glow */
+.link-btn {
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.link-btn:hover {
+  transform: scale(1.02);
+  border-color: rgba(249, 85, 35, 0.4);
+  box-shadow: 0 0 20px rgba(249, 85, 35, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.link-btn:active {
+  transform: scale(0.98);
 }
